@@ -6,14 +6,14 @@
 
 using namespace testing;
 
-class RandomTest : public Randominterface
+class RandomTest : public IRandom
 {
-    int generate(int, int)
+    uint generate(uint, uint)
     {
         return myList[current++];
     }
-    std::vector<int> myList = {9, 1, 0};
-    int current = 0;
+    std::vector<uint> myList = {9, 1, 0};
+    uint current = 0;
 };
 
 class FactoryTest  : public testing::Test
@@ -30,30 +30,34 @@ public:
 
 TEST_F(FactoryTest, ResourceObjectCreatedWithArgs)
 {
-    resource = factory.createGivenResource(100, Resource::Type::RAW_MATERIAL);
+    resource = factory.createGivenResource(100, Resource::Type::FUEL_TANK);
     EXPECT_THAT(resource.quantity, Eq(100));
-    EXPECT_THAT(resource.type, Eq(Resource::Type::RAW_MATERIAL));
-}
-
-TEST_F(FactoryTest, ResourceObjectCreatedWithRandomQt)
-{
-    resource = factory.createRandomResource();
-    EXPECT_THAT(resource.quantity, Ge(0));
-    EXPECT_THAT(resource.quantity, Le(900));
+    EXPECT_THAT(resource.type, Eq(Resource::Type::FUEL_TANK));
 }
 
 TEST_F(FactoryTest, RandomClassReturnRandomIntBetweenTwoPositiveRange)
 {
-    const int min = 40;
-    const int max = 99;
-    int result = randomInt.generate(min,max);
-    EXPECT_THAT(result, Ge(min)) ;
-    EXPECT_THAT(result, Le(max));
+  const int min = 40;
+  const int max = 99;
+  uint result = randomInt.generate(min,max);
+  EXPECT_THAT(result, Ge(min)) ;
+  EXPECT_THAT(result, Le(max));
 }
 
-TEST_F(FactoryTest, ResourceObjectCreatedWithRandomType)
+TEST_F(FactoryTest, ResourceObjectCreatedWithRandomGenerator)
 {
     resource = factory.createRandomResource();
     EXPECT_THAT(resource.quantity, Eq(900));
-    EXPECT_THAT(resource.type, Eq(Resource::Type::SHIP_PART));
+    EXPECT_THAT(resource.type, Eq(Resource::Type::FUEL_TANK));
 }
+
+
+// TEST_F(FactoryTest, RandomClassReturnRandomIntBetweenTwonegativeRange)
+// {
+//   const int min = -40;
+//   const int max = -99;
+//   uint result = randomInt.generate(min,max);
+//   EXPECT_THAT(result, Ge(min)) ;
+//   EXPECT_THAT(result, Le(max));
+// }
+

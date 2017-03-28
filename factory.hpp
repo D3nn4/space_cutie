@@ -6,36 +6,46 @@
 #include "ressources.hpp"
 #include <ctime>
 #include <cstdlib>
+#include <cstdint>
 
-class Randominterface 
+class IRandom
 {
 public:
-    virtual int generate(int, int) = 0;
+    virtual uint generate(uint, uint) = 0;
 };
 
-class RandomInt : public Randominterface
+class RandomInt : public IRandom
 {
 public:
     RandomInt()
     {
         std::srand(std::time(nullptr));
     }
-    int generate(int min, int max)
+    uint generate(uint min, uint max)
     {
-        int randomQt = (std::rand() % (max - min) + min);
+        uint randomQt = (std::rand() % (max - min) + min);
         return randomQt;
     }
 };
+// factory interface
 
+class IFactory
+{
+public:
+    virtual Resource createGivenResource(uint totalNeeded, Resource::Type typeNeeded) = 0;
+    virtual Resource createRandomResource() = 0;
+    virtual ~IFactory(){};
+};
 // class factory
 
-class Factory
+class Factory : public IFactory
 {
 public:
 
-    Factory(Randominterface* randomGenerator);
-    Resource createGivenResource(int totalNeeded, Resource::Type typeNeeded);
+    Factory(IRandom* randomGenerator);
+    Resource createGivenResource(uint totalNeeded, Resource::Type typeNeeded);
     Resource createRandomResource();
+    ~Factory(){};
 
 private:
 
@@ -45,12 +55,13 @@ private:
             SHIP
         };
 
-    Resource::Type getRandomLoot() const;
-
-    Randominterface* _randomIntGenerator;
-    std::vector<Factory::Category> _categoryResource;
     typedef std::vector<Resource::Type> ResourceTypes;
     typedef std::map< Factory::Category, ResourceTypes> ResourcesPerCategory;
+
+    Resource::Type getRandomLoot() const;
+
+    IRandom* _randomIntGenerator;
+    std::vector<Factory::Category> _categoryResource;
     ResourcesPerCategory _resourceByCategory;
 };
 

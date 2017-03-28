@@ -3,7 +3,9 @@ NAME = test
 SRC = main.cpp \
 			ressources.t.cpp \
 			factory.cpp \
-			factory.t.cpp
+			factory.t.cpp \
+			space.cpp \
+			space.t.cpp
 
 HEADER =-I/home/me/googletest/include
 

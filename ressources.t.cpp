@@ -13,9 +13,9 @@ public:
 
 TEST_F(ResourceEncoding, MemberVarCreatedAndFilled)
 {
-    resource.type = Resource::Type::RAW_MATERIAL;
+    resource.type = Resource::Type::COPPER;
     ASSERT_THAT(resource.quantity, Eq(0) );
-    ASSERT_THAT(resource.type, Eq(Resource::Type::RAW_MATERIAL));
+    ASSERT_THAT(resource.type, Eq(Resource::Type::COPPER));
 }
 
 

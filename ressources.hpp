@@ -8,8 +8,12 @@ struct Resource
 {
     enum class Type
     {
-        RAW_MATERIAL,
-        SHIP_PART
+        GOLD,
+        COPPER,
+        IRON,
+        SILVER,
+        FUEL_TANK,
+        CARGO_POD
     };
 
     Type type;

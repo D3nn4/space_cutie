@@ -1,24 +1,29 @@
 #include <stdlib.h>
 #include <time.h>
+#include <cstdint>
 #include "factory.hpp"
 
 
-Factory::Factory(Randominterface* randomGenerator)
+Factory::Factory(IRandom* randomGenerator)
     :_randomIntGenerator(randomGenerator)
 {
     _categoryResource.push_back(Factory::Category::RAW);
     _categoryResource.push_back(Factory::Category::SHIP);
     ResourceTypes rawRessource = {
-            Resource::Type::RAW_MATERIAL
+        Resource::Type::GOLD,
+        Resource::Type::COPPER,
+        Resource::Type::IRON,
+        Resource::Type::SILVER
     };
     ResourceTypes shipRessource = {
-            Resource::Type::SHIP_PART
+        Resource::Type::FUEL_TANK,
+        Resource::Type::CARGO_POD
     };
     _resourceByCategory[Factory::Category::RAW]= rawRessource;
     _resourceByCategory[Factory::Category::SHIP]= shipRessource;
 }
 
-Resource Factory::createGivenResource(int totalNeeded, Resource::Type typeNeeded)
+Resource Factory::createGivenResource(uint totalNeeded, Resource::Type typeNeeded)
 {
     Resource resource;
     resource.type = typeNeeded;
@@ -37,11 +42,11 @@ Resource Factory::createRandomResource()
 
 Resource::Type Factory::getRandomLoot() const
 {
-    int totalCategory = _resourceByCategory.size() - 1;
-    int randomCategoryResource = _randomIntGenerator->generate(0, totalCategory);
+    uint totalCategory = _resourceByCategory.size() - 1;
+    uint randomCategoryResource = _randomIntGenerator->generate(0, totalCategory);
     Factory::Category choosenCategory = _categoryResource[randomCategoryResource];
     auto choosenTypeIt = _resourceByCategory.find(choosenCategory);
-    int randomLoot = 0;
+    uint randomLoot = 0;
     if(choosenTypeIt != _resourceByCategory.end()){
         randomLoot = _randomIntGenerator->generate(0, (choosenTypeIt->second.size()- 1));
     }
