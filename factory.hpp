@@ -12,6 +12,7 @@ class IRandom
 {
 public:
     virtual uint generate(uint, uint) = 0;
+    virtual ~IRandom(){};
 };
 
 class RandomInt : public IRandom
@@ -45,7 +46,6 @@ public:
     Factory(IRandom* randomGenerator);
     Resource createGivenResource(uint totalNeeded, Resource::Type typeNeeded);
     Resource createRandomResource();
-    ~Factory(){};
 
 private:
 

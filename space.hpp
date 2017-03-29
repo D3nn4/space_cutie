@@ -8,8 +8,14 @@ class Space
 {
 public:
     Space(IFactory* ptrFactory);
+    void goToNextResource();
+    Resource getCurrent();
+    Resource getPrevious();
+
 private:
-    IFactory* factory = nullptr;
+    Resource _previous;
+    Resource _current;
+    IFactory* _factory = nullptr;
 };
 
 #endif

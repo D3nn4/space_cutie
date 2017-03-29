@@ -3,11 +3,12 @@
 #define _RESSOURCES_H_
 
 #include <string>
-
+#include <cstdbool>
 struct Resource
 {
     enum class Type
     {
+        EMPTY,
         GOLD,
         COPPER,
         IRON,
@@ -16,8 +17,14 @@ struct Resource
         CARGO_POD
     };
 
+    bool operator==(Resource rhs){
+        if (type == rhs.type
+            && quantity == rhs.quantity)
+            return true;
+        return false;
+    };
     Type type;
-    int quantity = 0;
+    int quantity;
 };
 
 #endif
