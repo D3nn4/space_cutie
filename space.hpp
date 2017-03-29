@@ -9,6 +9,7 @@ class Space
 public:
     Space(IFactory* ptrFactory);
     void goToNextResource();
+    void goToNextBase();
     Resource getCurrent();
     Resource getPrevious();
 

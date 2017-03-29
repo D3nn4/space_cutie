@@ -12,7 +12,7 @@ class RandomTest : public IRandom
     {
         return myList[current++];
     }
-    std::vector<uint> myList = {9, 1, 0};
+    std::vector<uint> myList = {9, 0, 3};
     uint current = 0;
 };
 
@@ -48,7 +48,7 @@ TEST_F(FactoryTest, ResourceObjectCreatedWithRandomGenerator)
 {
     resource = factory.createRandomResource();
     EXPECT_THAT(resource.quantity, Eq(900));
-    EXPECT_THAT(resource.type, Eq(Resource::Type::FUEL_TANK));
+    EXPECT_THAT(resource.type, Eq(Resource::Type::SILVER));
 }
 
 

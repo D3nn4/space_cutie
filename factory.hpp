@@ -49,20 +49,27 @@ public:
 
 private:
 
-    enum class Category
+    enum class ResourceCategory
         {
-            RAW,
-            SHIP
+            RAW
         };
+    // enum class ShipCategory
+    //     {
+    //         ENEMY,
+    //         SHIPWRECK
+    //     };
 
     typedef std::vector<Resource::Type> ResourceTypes;
-    typedef std::map< Factory::Category, ResourceTypes> ResourcesPerCategory;
+    typedef std::map< Factory::ResourceCategory, ResourceTypes> ResourcesPerCategory;
+    // typedef std::map< Factory::ShipCategory, ResourceTypes> ShipPerCategory;
 
     Resource::Type getRandomLoot() const;
 
     IRandom* _randomIntGenerator;
-    std::vector<Factory::Category> _categoryResource;
+    std::vector<Factory::ResourceCategory> _categoryResource;
     ResourcesPerCategory _resourceByCategory;
+    // std::vector<Factory::ShipCategory> _categoryShip;
+    // ShipPerCategory _ShipByCategory;
 };
 
 #endif
