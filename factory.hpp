@@ -3,10 +3,12 @@
 
 #include <map>
 #include <vector>
-#include "ressources.hpp"
 #include <ctime>
 #include <cstdlib>
 #include <cstdint>
+
+#include "ressources.hpp"
+#include "location.hpp"
 
 class IRandom
 {
@@ -33,6 +35,7 @@ public:
 class IFactory
 {
 public:
+    virtual Location createLocation(Location::Type typeNeeded) = 0;
     virtual Resource createGivenResource(uint totalNeeded, Resource::Type typeNeeded) = 0;
     virtual Resource createRandomResource() = 0;
     virtual ~IFactory(){};
@@ -44,10 +47,11 @@ class Factory : public IFactory
 public:
 
     Factory(IRandom* randomGenerator);
+    Location createLocation(Location::Type typeNeeded);
     Resource createGivenResource(uint totalNeeded, Resource::Type typeNeeded);
     Resource createRandomResource();
 
-private:
+protected:
 
     enum class ResourceCategory
         {
@@ -64,6 +68,8 @@ private:
     // typedef std::map< Factory::ShipCategory, ResourceTypes> ShipPerCategory;
 
     Resource::Type getRandomLoot() const;
+    std::string getBaseName();
+    std::string getResourcePlaceName();
 
     IRandom* _randomIntGenerator;
     std::vector<Factory::ResourceCategory> _categoryResource;

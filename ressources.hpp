@@ -23,8 +23,8 @@ struct Resource
             return true;
         return false;
     };
-    Type type;
-    int quantity;
+    int quantity = 0;
+    Type type = Resource::Type::EMPTY;
 };
 
 #endif

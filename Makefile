@@ -5,7 +5,8 @@ SRC = main.cpp \
 			factory.cpp \
 			factory.t.cpp \
 			space.cpp \
-			space.t.cpp
+			space.t.cpp \
+			location.hpp
 
 HEADER =-I/home/me/googletest/include
 

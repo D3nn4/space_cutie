@@ -7,16 +7,23 @@ Space::Space(IFactory* ptrFactory)
 void Space::goToNextResource()
 {
     _previous = _current;
-    Resource newResource = _factory->createRandomResource();
+    Location newResource = _factory->createLocation(Location::Type::RESOURCES_SEARCH);
     _current = newResource;
 }
 
-Resource Space::getCurrent()
+void Space::goToNextBase()
+{
+    _previous = _current;
+    Location newResource = _factory->createLocation(Location::Type::MERCHANT_BASE);
+    _current = newResource;
+}
+
+Location Space::getCurrent()
 {
     return _current;
 }
 
-Resource Space::getPrevious()
+Location Space::getPrevious()
 {
     return _previous;
 }

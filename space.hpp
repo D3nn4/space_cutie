@@ -10,12 +10,12 @@ public:
     Space(IFactory* ptrFactory);
     void goToNextResource();
     void goToNextBase();
-    Resource getCurrent();
-    Resource getPrevious();
+    Location getCurrent();
+    Location getPrevious();
 
 private:
-    Resource _previous;
-    Resource _current;
+    Location _previous;
+    Location _current;
     IFactory* _factory = nullptr;
 };
 
